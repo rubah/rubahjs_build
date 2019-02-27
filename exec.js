@@ -3,10 +3,14 @@ const fs = require("fs");
 const fileSource = require("../rubahjs/fileSource");
 const rubah = rubahjs.new();
 const recursive = require("recursive-readdir");
-fileSource.exclude('../rubahjs/node_modules');
-fileSource.exclude('../rubahjs/.git');
-fileSource.exclude('../rubahjs/.nyc_output');
-// fileSource.exclude('../rubahjs/templates');
+try{
+    fileSource.exclude('../rubahjs/node_modules');
+    fileSource.exclude('../rubahjs/.git');
+    fileSource.exclude('../rubahjs/.nyc_output');
+    // fileSource.exclude('../rubahjs/templates');
+}catch(e){
+    
+}
 rubah.source.register(fileSource);
 
 if(fs.existsSync('error.log'))

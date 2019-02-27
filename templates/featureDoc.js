@@ -28,7 +28,7 @@ module.exports = function(opts){
         filename: path.resolve(watch,'../rubahjs/documentation/feature/{{{camelCase key}}}.md'),
         template: template,
         stateToData: function(state){
-            let features;
+            let features = [];
             if(state.features){
                 features = Object.values(state.features)
             }

@@ -30,7 +30,7 @@ module.exports = function(opts){
         stateToData: function(state){
             const pd = state.packageJson.data || {};
             const doc = state.doc || {description: {}};
-            let features;
+            let features = [];
             if(state.features){
                 features = Object.values(state.features)
             }

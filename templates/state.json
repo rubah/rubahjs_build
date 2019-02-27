@@ -1,0 +1,197 @@
+{
+	"packageJson": {
+		"data": {
+			"name": "rubahjs",
+			"version": "0.3.0",
+			"description": "file template and reverse template service that watches and sync for changes",
+			"main": "index.js",
+			"scripts": {
+				"exec": "node exec.js",
+				"apply": "node apply.js",
+				"test": "nyc --reporter=json-summary mocha ",
+				"preversion": "npm test",
+				"version": "git add .",
+				"postversion": "git push",
+				"preinstall": "ncu -u"
+			},
+			"repository": {
+				"type": "git",
+				"url": "git+https://github.com/rubah/rubahjs.git"
+			},
+			"keywords": [
+				"file",
+				"template",
+				"handlebars",
+				"state"
+			],
+			"author": "averman@gmail.com",
+			"license": "ISC",
+			"bugs": {
+				"url": "https://github.com/rubah/rubahjs/issues"
+			},
+			"homepage": "https://github.com/rubah/rubahjs#readme",
+			"devDependencies": {
+				"mocha": "^5.2.0",
+				"nyc": "^13.1.0",
+				"why-is-node-running": "^2.0.3"
+			},
+			"dependencies": {
+				"files-tree": "^1.0.8",
+				"is-directory": "^0.3.1",
+				"lodash": "^4.17.11",
+				"recursive-readdir": "^2.2.2",
+				"redux": "^4.0.1",
+				"reversible-handlebars": "0.2.1"
+			}
+		}
+	},
+	"shields": {
+		"version": {
+			"subject": "version",
+			"status": "0.3.0",
+			"color": "brightgreen"
+		},
+		"coverage": {
+			"subject": "coverage",
+			"status": "27%25",
+			"color": "ff0000"
+		}
+	},
+	"coverage": {
+		"lines": {
+			"total": 188,
+			"covered": 87,
+			"skipped": 0,
+			"pct": 46.28
+		},
+		"statements": {
+			"total": 217,
+			"covered": 91,
+			"skipped": 0,
+			"pct": 41.94
+		},
+		"functions": {
+			"total": 41,
+			"covered": 16,
+			"skipped": 0,
+			"pct": 39.02
+		},
+		"branches": {
+			"total": 95,
+			"covered": 26,
+			"skipped": 0,
+			"pct": 27.37
+		}
+	},
+	"doc": {
+		"description": {
+			"key": "description",
+			"data": "this project inspired by [plop js](https://plopjs.com/) and aims to bring project templating to a whole new level. \n\nRubahjs manage all your data required for templating into a single state tree, and by single function call, you can create all templated file from that single state tree\n\nMore over, rubahjs also provide reverse templating (for simple [handlebar](https://handlebarsjs.com/) template) using [reversible handlebar](https://github.com/averman/reversible-handlebars). Using Rubahjs you can scan all the files in your project folder, and create a single state tree"
+		}
+	},
+	"features": {
+		"customReducer": {
+			"key": "customReducer",
+			"id": "5",
+			"description": "Use redux reducer to merge extraction data into the state tree",
+			"examples": [
+				{
+					"desc": "Setting up rubahjs",
+					"desc2": "We are importing rubahjs using standard require. By default the result returned are already instantiated and\nready to use. If you want to instantiate rubahjs manualy, you can use the constructor in ```new rubahjs.new(opts)```.\nFor more info on rubahjs constructor refer to [constructor manual](doc/compiled/constructor.md)",
+					"code": "const rubahjs = require(\"rubahjs\");"
+				}
+			]
+		},
+		"fileExclusion": {
+			"key": "fileExclusion",
+			"id": "4",
+			"description": "Exclude files from data extraction by rubahjs",
+			"examples": [
+				{
+					"desc": "Setting up rubahjs",
+					"desc2": "We are importing rubahjs using standard require. By default the result returned are already instantiated and\nready to use. If you want to instantiate rubahjs manualy, you can use the constructor in ```new rubahjs.new(opts)```.\nFor more info on rubahjs constructor refer to [constructor manual](doc/compiled/constructor.md)",
+					"code": "const rubahjs = require(\"rubahjs\");"
+				}
+			]
+		},
+		"handlebarMultiTemplating": {
+			"key": "handlebarMultiTemplating",
+			"id": "1",
+			"description": "Create multiple files from single template and the state tree",
+			"examples": [
+				{
+					"desc": "Setting up rubahjs",
+					"desc2": "We are importing rubahjs using standard require. By default the result returned are already instantiated and\nready to use. If you want to instantiate rubahjs manualy, you can use the constructor in ```new rubahjs.new(opts)```.\nFor more info on rubahjs constructor refer to [constructor manual](../reference/core.md#constructor)",
+					"code": "const rubahjs = require(\"rubahjs\");"
+				},
+				{
+					"desc": "Creating and registering template",
+					"desc2": "Templates are the lifeblood of rubah js. Rubahjs template can be varied from simple js object, to complex package with\ndependency to other package. Here we're trying to create a very simple template, for creating a txt file which name defined\nby ```id``` and the content of the file is the string of ```this is <data will be pasted here>```. \n\nThe stateToData property are a function that governs how the state tree will be mapped into the template. If the stateToData\nfunction returns an array, then the template will be applied for each element of the array, thus enabling the creation of multiple\nfiles from a single template and state tree.\nIn this example we are simply returning the branch of ```test``` from the state tree\n\nFor more templating with ```{{handlebars}}```\nyou can refer to [handlebars js](https://handlebarsjs.com/). For more **rubahjs** templating options refer to \n[rubahjs templating reference](../reference/templates.md)\n\nThe register function will register the template into rubahjs instance, making it ready to use with subsequent rubahjs api call\nFor more **rubahjs** api refer to \n[rubahjs templating reference](../reference/core.md#api)",
+					"code": "const template = {\n    templateName: \"testTemplate\",\n    filename: \"{{{id}}}.txt\",\n    template: \"this is {{{data}}}!!\",\n    stateToData: function(state) {\n        return state.test;\n    },\n};\nrubahjs.register(template);"
+				},
+				{
+					"desc": "Setting up the state tree and running rubahjs",
+					"desc2": "Here we are setting up the initial value of the state tree, with a single branch object test which is an array containing 3 other objects.\nSince the template picking the test branch, and the test branch is an array, each elements of the array will be applied to the template.\nThe materialize function will apply the state tree to all the templates registered, which will materialize the files.\nThe materialize function will return a collection of promises which for every templates should return their creation response",
+					"code": "rubahjs.state.dispatch({\n    type: 'apply',\n    data: {\n        test: [{\n                id: 1,\n                data: 'number one'\n            },\n            {\n                id: 'test',\n                data: 'test'\n            },\n            {\n                id: 'abc',\n                data: 'abc'\n            }\n        ]\n    }\n});\nlet result = rubahjs.materialize();"
+				},
+				{
+					"desc": "The Result",
+					"desc2": "the result would be a creation of three files: 1.txt, test.txt, abc.txt with their content as stated in \nthe state tree. the assertFile is an expression that asserting that the content of the file is correct",
+					"code": "assertFile('1.txt', 'this is number one!!');\nassertFile('test.txt', 'this is test!!');\nassertFile('abc.txt', 'this is abc!!');"
+				}
+			]
+		},
+		"multipleExtractorOfSingleFile": {
+			"key": "multipleExtractorOfSingleFile",
+			"id": "3",
+			"description": "Define multiple overlaping templates to extract a file in various means",
+			"examples": [
+				{
+					"desc": "Setting up rubahjs",
+					"desc2": "We are importing rubahjs using standard require. By default the result returned are already instantiated and\nready to use. If you want to instantiate rubahjs manualy, you can use the constructor in ```new rubahjs.new(opts)```.\nFor more info on rubahjs constructor refer to [constructor manual](doc/compiled/constructor.md)",
+					"code": "const rubahjs = require(\"rubahjs\");"
+				}
+			]
+		},
+		"nonFileSource": {
+			"key": "nonFileSource",
+			"id": "7",
+			"description": "Extend rubahjs to extract state data from anything",
+			"examples": [
+				{
+					"desc": "Setting up rubahjs",
+					"desc2": "We are importing rubahjs using standard require. By default the result returned are already instantiated and\nready to use. If you want to instantiate rubahjs manualy, you can use the constructor in ```new rubahjs.new(opts)```.\nFor more info on rubahjs constructor refer to [constructor manual](doc/compiled/constructor.md)",
+					"code": "const rubahjs = require(\"rubahjs\");"
+				}
+			]
+		},
+		"stateExtraction": {
+			"key": "stateExtraction",
+			"id": "2",
+			"description": "Extract state data from multiple files",
+			"examples": [
+				{
+					"desc": "Setting up rubahjs\nWe are importing rubahjs using standard require. By default the result returned are already instantiated and\nready to use. If you want to instantiate rubahjs manualy, you can use the constructor in ```new rubahjs.new(opts)```.\nFor more info on rubahjs constructor refer to [constructor manual](doc/compiled/constructor.md)",
+					"code": "const rubahjs = require(\"rubahjs\");"
+				},
+				{
+					"desc": "Next we're going to create the files that will be extracted. In this example, there will be 3 json files that initialized\nwith:",
+					"desc2": "We are importing rubahjs using standard require. By default the result returned are already instantiated and\nready to use. If you want to instantiate rubahjs manualy, you can use the constructor in ```new rubahjs.new(opts)```.\nFor more info on rubahjs constructor refer to [constructor manual](doc/compiled/constructor.md)",
+					"code": "const fs = require(\"fs\");\nfs.writeFileSync('test1.json', JSON.stringify({\n    key1: 1,\n    key2: 2\n}));\nfs.writeFileSync('test2.json', JSON.stringify({\n    key3: {\n        a: 1\n    }\n}));\nfs.writeFileSync('test3.json', JSON.stringify({\n    key3: {\n        b: 2\n    }\n}));"
+				}
+			]
+		},
+		"stateSubscriber": {
+			"key": "stateSubscriber",
+			"id": "6",
+			"description": "Create a redux action listener that will trigger on specific action",
+			"examples": [
+				{
+					"desc": "Setting up rubahjs",
+					"desc2": "We are importing rubahjs using standard require. By default the result returned are already instantiated and\nready to use. If you want to instantiate rubahjs manualy, you can use the constructor in ```new rubahjs.new(opts)```.\nFor more info on rubahjs constructor refer to [constructor manual](doc/compiled/constructor.md)",
+					"code": "const rubahjs = require(\"rubahjs\");"
+				}
+			]
+		}
+	}
+}

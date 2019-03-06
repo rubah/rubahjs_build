@@ -63,6 +63,11 @@ module.exports = function(opts) {
             res[data.key].id = data.data.id;
             res[data.key].description = data.data.description;
             res[data.key].examples = data.data.examples;
+            if(process.env.DEBUG_MODE){
+                console.debug('\n\n');
+                console.debug(res);
+                console.debug('\n\n==========\n\n\n\n\n');
+            }
             return { features: res };
         },
         write: false,

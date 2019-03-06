@@ -11,6 +11,6 @@
   "dependencies": {
     "js-beautify": "^1.8.9",
     "recursive-readdir": "^2.2.2",
-    "rubahhelper": "^0.2.1"
+    "rubahhelper": "^0.2.3"
   }
 }

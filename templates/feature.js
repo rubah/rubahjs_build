@@ -44,6 +44,11 @@ module.exports = function(opts) {
                 return x;
             });
             data.data = {description: d.shift().data, id: d.shift().data, examples: []};
+            if(process.env.DEBUG_MODE){
+                console.debug('\n\n');
+                console.debug(JSON.stringify(d));
+                console.debug('\n\n==========\n\n\n\n\n');
+            }
             while(d.length>0){
                 let desc = d.shift().data;
                 let desc2;
@@ -63,11 +68,6 @@ module.exports = function(opts) {
             res[data.key].id = data.data.id;
             res[data.key].description = data.data.description;
             res[data.key].examples = data.data.examples;
-            if(process.env.DEBUG_MODE){
-                console.debug('\n\n');
-                console.debug(JSON.stringify(res));
-                console.debug('\n\n==========\n\n\n\n\n');
-            }
             return { features: res };
         },
         write: false,

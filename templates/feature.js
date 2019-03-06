@@ -33,7 +33,7 @@ module.exports = function(opts) {
         },
         dataToState: function(data) {
             if(process.env.DEBUG_MODE)
-                console.debug(data);
+                console.debug(JSON.stringify(data));
             let d = data.data;
             d = d.filter(x=>{
                 return !(x.type == "default")
@@ -65,7 +65,7 @@ module.exports = function(opts) {
             res[data.key].examples = data.data.examples;
             if(process.env.DEBUG_MODE){
                 console.debug('\n\n');
-                console.debug(res);
+                console.debug(JSON.stringify(res));
                 console.debug('\n\n==========\n\n\n\n\n');
             }
             return { features: res };

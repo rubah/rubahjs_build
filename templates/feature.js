@@ -32,6 +32,8 @@ module.exports = function(opts) {
             return res;
         },
         dataToState: function(data) {
+            if(process.env.DEBUG_MODE)
+                console.debug(data);
             let d = data.data;
             d = d.filter(x=>{
                 return !(x.type == "default")

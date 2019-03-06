@@ -26,7 +26,8 @@ recursive('./templates',function(err,files){
             }));
     }
     rubah.scan('../rubahjs',(x)=>{
-        // console.log(x);
+        if(process.env.DEBUG_MODE)
+            console.log(JSON.stringify(x));
         rubah.materialize();
     });
 })
